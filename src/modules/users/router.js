@@ -9,5 +9,5 @@ router.get("/users",checkAdminToken,users)
 router.get("/user/profile",checkUserToken,usersById)
 router.post("/users",addUser)
 router.put("/users/:id",checkUserToken,checkParamsId,updateUser)
-router.delete("/users/:id",deleteUser)
+router.delete("/users/:id",checkAdminToken,deleteUser)
 export default router

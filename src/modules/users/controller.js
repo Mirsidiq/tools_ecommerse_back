@@ -114,12 +114,12 @@ const updateUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const newUser = await UsersModel.destroy({
+    const user = await UsersModel.destroy({
       where: {
         user_id: id,
       },
     });
-    newUser == 1
+    user == 1
       ? res.status(201).json({
           message: "deleted",
         })
