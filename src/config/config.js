@@ -1,4 +1,5 @@
 const PORT = process.env.PORT || 8080;
+const HOST="http://localhost:8080"
 import dotenv from "dotenv";
 dotenv.config();
 const sequelizeConfig = {
@@ -8,4 +9,4 @@ const sequelizeConfig = {
   host: process.env.PG_HOST,
   dialect: "postgres",  
 };
-export { PORT, sequelizeConfig };
+export { PORT, sequelizeConfig ,HOST};
