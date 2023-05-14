@@ -2,6 +2,7 @@ import { customError } from "../exception/customError.js";
 import {
   checkId,
   ContactBody,
+  ProductBody,
   SubcategoryBody,
   UserLoginBody,
   UserRegisterBody,
@@ -32,10 +33,16 @@ const ContactBodyMiddleware = (req, _, next) => {
   if (error) next(new customError(400, error.message.replaceAll('"', "")));
   next();
 };
+const ProductBodyMiddleware = (req, _, next) => {
+  const { error, __ } =ProductBody.validate(req.body);
+  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+  next();
+};
 export {
   checkParamsId,
   UserLoginBodyMiddleware,
   UserRegisterBodyMiddleware,
   SubcategoryBodyMiddleware,
-  ContactBodyMiddleware
+  ContactBodyMiddleware,
+  ProductBodyMiddleware
 }

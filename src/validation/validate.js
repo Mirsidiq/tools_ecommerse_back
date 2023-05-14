@@ -21,10 +21,20 @@ const ContactBody = Joi.object({
 const SubcategoryBody = Joi.object({
   name: Joi.string().max(64).required(),
 });
+const ProductBody = Joi.object({
+  name: Joi.string().max(64).required(),
+  description: Joi.string(),
+  price: Joi.number().required(),
+  total_count: Joi.number().required(),
+  thumbnail: Joi.string(),
+  brand: Joi.string().valid("rasulov","stroyka","destroy","rollers").required(),
+  ref_subcategory: Joi.number().required(),
+});
 export {
   checkId,
   UserLoginBody,
   UserRegisterBody,
   SubcategoryBody,
-  ContactBody
+  ContactBody,
+  ProductBody
 };

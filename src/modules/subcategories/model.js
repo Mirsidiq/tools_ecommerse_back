@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import {sequelize} from "../../utils/sequelize.js";
+import { ProductsModel } from "../products/model.js";
 const SubcategoriesModel=sequelize.define("subcategories",{
   subcategory_id:{
   type:DataTypes.BIGINT,
@@ -18,12 +19,12 @@ const SubcategoriesModel=sequelize.define("subcategories",{
   timestamps:false,
   freezeTableName:true,
 })
-// SubcategoriesModel.hasMany(IncomesModel,{
-//   foreignKey:"user_ref_id"
-// })
-// IncomesModel.belongsTo(SubcategoriesModel,{
-//   foreignKey:"user_ref_id"
-// })
+SubcategoriesModel.hasMany(ProductsModel,{
+  foreignKey:"ref_subcategory"
+})
+ProductsModel.belongsTo(SubcategoriesModel,{
+  foreignKey:"ref_subcategory"
+})
 
 export{
   SubcategoriesModel

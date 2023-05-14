@@ -1,9 +1,10 @@
 import { customError } from "../../exception/customError.js"
+import { ProductsModel } from "../products/model.js"
 import { SubcategoriesModel } from "./model.js"
 
 const allSubCategories=async (req,res,next) => {
   try {
-    const subcategories =await SubcategoriesModel.findAll()
+    const subcategories =await SubcategoriesModel.findAll({include:[ProductsModel]})
     if(subcategories.length > 0) {
       res.status(200).json({
         message:"subcategories",
