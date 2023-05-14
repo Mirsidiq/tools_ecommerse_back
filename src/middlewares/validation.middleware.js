@@ -1,8 +1,10 @@
 import { customError } from "../exception/customError.js";
 import {
   checkId,
+  ContactBody,
+  SubcategoryBody,
   UserLoginBody,
-  UserRegisterBody
+  UserRegisterBody,
 } from "../validation/validate.js";
 
 const checkParamsId = (req, _, next) => {
@@ -20,8 +22,20 @@ const UserRegisterBodyMiddleware = (req, _, next) => {
   if (error) next(new customError(400, error.message.replaceAll('"', "")));
   next();
 };
+const SubcategoryBodyMiddleware = (req, _, next) => {
+  const { error, __ } =SubcategoryBody.validate(req.body);
+  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+  next();
+};
+const ContactBodyMiddleware = (req, _, next) => {
+  const { error, __ } =ContactBody.validate(req.body);
+  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+  next();
+};
 export {
   checkParamsId,
   UserLoginBodyMiddleware,
-  UserRegisterBodyMiddleware
+  UserRegisterBodyMiddleware,
+  SubcategoryBodyMiddleware,
+  ContactBodyMiddleware
 }
