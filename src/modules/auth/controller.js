@@ -22,7 +22,7 @@ const login = async (req, res, next) => {
     }
 };
 const register = async (req, res, next) => {
-  const { firstname,email, password } = req.body;
+  const { firstname,email, password,role } = req.body;
   const findUser = await UsersModel.findOne({
     where: {
       firstname,
@@ -37,7 +37,7 @@ const register = async (req, res, next) => {
     });
   }
   else {
-    const addUser=await UsersModel.create({firstname,email,password});
+    const addUser=await UsersModel.create({firstname,email,password,role});
     if(addUser){
       res.status(201).json({
         message: "user registered",

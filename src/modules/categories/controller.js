@@ -1,8 +1,9 @@
 import {CategoriesModel} from './model.js'
 import {customError} from "../../exception/customError.js"
 import { HOST } from '../../config/config.js'
+import { SubcategoriesModel } from '../subcategories/model.js'
 const allCategories=async(req,res,next) => {
-  const categories=await CategoriesModel.findAll()
+  const categories=await CategoriesModel.findAll({include:[SubcategoriesModel]})
  try {
   if(categories.length>0){
     res.status(200).json({

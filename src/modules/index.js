@@ -5,6 +5,7 @@ import subcategories from "./subcategories/router.js";
 import contact from "./contacts/router.js";
 import brands from "./brands/router.js";
 import products from "./products/router.js";
+import orderAddress from "./orderAddress/router.js"
 export default [
   auth,
   users,
@@ -12,5 +13,6 @@ export default [
   subcategories,
   contact,
   brands,
-  products
+  products,
+  orderAddress
 ];

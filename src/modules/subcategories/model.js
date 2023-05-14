@@ -14,6 +14,10 @@ const SubcategoriesModel=sequelize.define("subcategories",{
   allowNull:false,
   unique:true
  },
+ ref_category:{
+  type:DataTypes.BIGINT,
+    allowNull:false,
+ }
 },
 {
   timestamps:false,

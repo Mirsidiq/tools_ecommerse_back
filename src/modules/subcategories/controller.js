@@ -23,8 +23,8 @@ const allSubCategories=async (req,res,next) => {
 }
 const addSubCategory=async(req,res,next) => {
   try {
-   const {name} = req.body
-   const subcategory=await SubcategoriesModel.create({name},{returning:true})
+   const {name,ref_category} = req.body
+   const subcategory=await SubcategoriesModel.create({name,ref_category},{returning:true})
    if(subcategory){
      res.status(201).json({
        message:"subcategory created",
