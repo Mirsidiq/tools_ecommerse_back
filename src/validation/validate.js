@@ -40,7 +40,16 @@ const OrderAddressBody = Joi.object({
   street: Joi.string().max(64).required(),
   home: Joi.number().required(),
   phone: Joi.string().regex(/^\+?[1-9][0-9]{7,11}$/).required(),
+  other_data:Joi.string().required(),
   ref_user: Joi.number().required(),
+});
+const OrderBody = Joi.object({
+  total: Joi.number().required(),
+  count: Joi.number().required(),
+  product: Joi.array().required(),
+  ref_user: Joi.number().required(),
+  ref_address: Joi.number().required(),
+  isActive: Joi.string().valid("active","inactive").required(),
 });
 export {
   checkId,
@@ -49,5 +58,6 @@ export {
   SubcategoryBody,
   ContactBody,
   ProductBody,
-  OrderAddressBody
+  OrderAddressBody,
+  OrderBody
 };

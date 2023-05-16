@@ -1,6 +1,7 @@
 import { DataTypes,ENUM } from "sequelize";
 import {sequelize} from "../../utils/sequelize.js";
 import { OrderAddressModel } from "../orderAddress/model.js";
+import { OrdersModel } from "../orders/model.js";
 const UsersModel=sequelize.define("users",{
   user_id:{
   type:DataTypes.BIGINT,
@@ -42,8 +43,17 @@ const UsersModel=sequelize.define("users",{
   timestamps:false,
   freezeTableName:true,
 })
-// UsersModel.hasMany(OrderAddressModel,{
-//   foreignKey:"ref_user"
+UsersModel.hasMany(OrdersModel,{
+  foreignKey:"ref_user"
+})
+OrdersModel.belongsTo(UsersModel,{
+  foreignKey:"ref_user"
+})
+// UsersModel.hasMany(OrdersModel,{
+//   foreignKey:"user_id"
+// })
+// OrdersModel.belongsTo(UsersModel,{
+//   foreignKey:"user_id"
 // })
 // OrderAddressModel.belongsTo(UsersModel,{
 //   foreignKey:"ref_user"

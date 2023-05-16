@@ -3,6 +3,7 @@ import {
   checkId,
   ContactBody,
   OrderAddressBody,
+  OrderBody,
   ProductBody,
   SubcategoryBody,
   UserLoginBody,
@@ -44,6 +45,11 @@ const OrderAddressBodyMiddleware = (req, _, next) => {
   if (error) next(new customError(400, error.message.replaceAll('"', "")));
   next();
 };
+const OrderBodyMiddleware = (req, _, next) => {
+  const { error, __ } =OrderBody.validate(req.body);
+  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+  next();
+};
 export {
   checkParamsId,
   UserLoginBodyMiddleware,
@@ -51,5 +57,6 @@ export {
   SubcategoryBodyMiddleware,
   ContactBodyMiddleware,
   ProductBodyMiddleware,
-  OrderAddressBodyMiddleware
+  OrderAddressBodyMiddleware,
+  OrderBodyMiddleware
 }

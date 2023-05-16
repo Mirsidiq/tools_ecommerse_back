@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import {sequelize} from "../../utils/sequelize.js";
+import { OrdersModel } from "../orders/model.js";
 const regions=["toshkent","samarqand","buxoro","xorazm","navoiy","qashqadaryo","jizzax","surxandaryo","namangan","toshkent viloyati","qoraqalpog'iston"]
 const OrderAddressModel=sequelize.define("order_address",{
   address_id:{
@@ -48,9 +49,12 @@ const OrderAddressModel=sequelize.define("order_address",{
   timestamps:false,
   freezeTableName:true,
 })
-// OrderAddressModel.(IncomesModel,{
-//   foreignKey:"user_ref_id"
-// })
+OrderAddressModel.hasOne(OrdersModel,{
+  foreignKey:"ref_address",
+})
+OrdersModel.belongsTo(OrderAddressModel,{
+  foreignKey:"ref_address",
+})
 // IncomesModel.belongsTo(OrderAddressModel,{
 //   foreignKey:"user_ref_id"
 // })

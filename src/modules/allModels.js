@@ -5,6 +5,7 @@ import { CompanyAddressModel } from "./contacts/model.js";
 import {  BrandsModel} from "./brands/model.js";
 import {  ProductsModel} from "./products/model.js";
 import {  OrderAddressModel} from "./orderAddress/model.js";
+import {OrdersModel} from "./orders/model.js";
 export default [
   UsersModel,
   CategoriesModel,
@@ -12,5 +13,6 @@ export default [
   CompanyAddressModel,
   BrandsModel,
   ProductsModel,
-  OrderAddressModel
+  OrderAddressModel,
+  OrdersModel
 ];

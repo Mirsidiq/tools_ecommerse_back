@@ -1,6 +1,7 @@
 import { DataTypes,ENUM } from "sequelize";
 import {sequelize} from "../../utils/sequelize.js";
 import { OrderAddressModel } from "../orderAddress/model.js";
+import { UsersModel } from "../users/model.js";
 const OrdersModel=sequelize.define("orders",{
   order_id:{
   type:DataTypes.BIGINT,
@@ -21,18 +22,34 @@ const OrdersModel=sequelize.define("orders",{
   type:DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.BIGINT)),
   allowNull:false
  },
+ ref_user:{
+  type:DataTypes.BIGINT,
+  allowNull:false
+ },
+ ref_address:{
+  type:DataTypes.BIGINT,
+  allowNull:false
+ },
+ isActive:{
+  type:DataTypes.ENUM("active","inactive"),
+  defaultValue:"active",
+ },
  ordered_at:{
-  type:DataTypes.NOW,
+  type:DataTypes.DATE,
   defaultValue:DataTypes.NOW,
   allowNull:false
- }
+ },
 },
 {
   timestamps:false,
   freezeTableName:true,
 })
-// OrdersModel.hasMany(OrderAddressModel,{
-//   foreignKey:"ref_user"
+
+// OrdersModel.hasOne(UsersModel,{
+//   foreignKey:"user_id",
+// })
+// OrdersModel.hasOne(OrderAddressModel,{
+//   foreignKey:"address_id",
 // })
 // OrderAddressModel.belongsTo(OrdersModel,{
 //   foreignKey:"ref_user"
