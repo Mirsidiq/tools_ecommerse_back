@@ -1,4 +1,5 @@
 import { customError } from "../../exception/customError.js";
+import { OrderAddressModel } from "../orderAddress/model.js";
 import { UsersModel } from "./model.js";
 
 const users = async (req, res, next) => {
@@ -31,7 +32,7 @@ const usersById=async(req,res,next)=>{
       });
     }
     else{
-      res.status(200).json({
+      res.status(404).json({
         message: "not found",
         data: {},
       });
@@ -40,6 +41,47 @@ const usersById=async(req,res,next)=>{
     next( new customError(500,"internal error"))
   }
 }
+// const usersOrders=async(req,res,next)=>{
+//   try {
+//     const {id}=req.params;
+//     const user=await UsersModel.findByPk(id,{include:[OrderAddressModel]})
+//     if(user){
+//       res.status(200).json({
+//         message: "success",
+//         data: user,
+//       });
+//     }
+//     else{
+//       res.status(404).json({
+//         message: "not found",
+//         data: {},
+//       });
+//     }
+//   } catch (error) {
+//     next( new customError(500,"internal error"))
+//   }
+// }
+// const userWithOrderAddress=async(req,res,next) => {
+//   try {
+//     const [users]= await sequelize.query(
+//       "SELECT firstname,lastname,email,order_address.address_id,order_address.mail_index,order_address.region,order_address.district,order_address.street,order_address.home,order_address.phone,order_address.other_data FROM users JOIN users ON users.user_id = order_address.address_id"
+//     );
+//     if(users){
+//       res.status(200).json({
+//         message: "success",
+//         data: users,
+//       });
+//     }
+//     else{
+//       res.status(200).json({
+//         message: "not found",
+//         data: {},
+//       });
+//     }
+//   } catch (error) {
+//     next( new customError(500,"internal error"))
+//   }
+// }
 const addUser = async (req, res, next) => {
   try {
     const {

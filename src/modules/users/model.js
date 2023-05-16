@@ -1,5 +1,6 @@
 import { DataTypes,ENUM } from "sequelize";
 import {sequelize} from "../../utils/sequelize.js";
+import { OrderAddressModel } from "../orderAddress/model.js";
 const UsersModel=sequelize.define("users",{
   user_id:{
   type:DataTypes.BIGINT,
@@ -41,12 +42,13 @@ const UsersModel=sequelize.define("users",{
   timestamps:false,
   freezeTableName:true,
 })
-// UsersModel.hasMany(IncomesModel,{
-//   foreignKey:"user_ref_id"
+// UsersModel.hasMany(OrderAddressModel,{
+//   foreignKey:"ref_user"
 // })
-// IncomesModel.belongsTo(UsersModel,{
-//   foreignKey:"user_ref_id"
+// OrderAddressModel.belongsTo(UsersModel,{
+//   foreignKey:"ref_user"
 // })
+// 1 ta userni bir nechta orderi bor har bitta orderni order addressi bor
 
 export{
   UsersModel

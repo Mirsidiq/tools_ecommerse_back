@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { checkAdminToken} from "../../middlewares/checkToken.js";
+import { checkAdminToken, checkUserToken} from "../../middlewares/checkToken.js";
 import {OrderAddressBodyMiddleware,checkParamsId} from "../../middlewares/validation.middleware.js";
-import { orderAddress } from "./controller.js";
+import { addOrderAddress, orderAddress } from "./controller.js";
 const router=Router()
 
-router.get("/order/address",orderAddress)
-// router.post("/subcategories",checkAdminToken,SubcategoryBodyMiddleware,addSubCategory)
+router.get("/order/address",checkAdminToken,orderAddress)
+router.post("/order/address",checkUserToken,addOrderAddress)
 // router.put("/subcategory/:id",checkAdminToken,checkParamsId,updateSubCategory)
 // router.delete("/subcategory/:id",checkAdminToken,checkParamsId,deleteSubCategory)
 export default router
