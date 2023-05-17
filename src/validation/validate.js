@@ -27,12 +27,12 @@ const ProductBody = Joi.object({
   name: Joi.string().max(64).required(),
   description: Joi.string(),
   price: Joi.number().required(),
-  total_count: Joi.number().required(),
-  thumbnail: Joi.string(),
-  brand: Joi.string().valid("rasulov","stroyka","destroy","rollers").required(),
+  brand: Joi.number().required(),
   ref_subcategory: Joi.number().required(),
 });
-
+const validateImage=Joi.object({
+  image:Joi.string().required()
+})
 const OrderAddressBody = Joi.object({
   mail_index: Joi.number(),
   region: Joi.string().valid("toshkent","samarqand","buxoro","xorazm","navoiy","qashqadaryo","jizzax","surxandaryo","navoiy","namangan","toshkent viloyati","qoraqalpog'iston"),
@@ -59,5 +59,6 @@ export {
   ContactBody,
   ProductBody,
   OrderAddressBody,
-  OrderBody
+  OrderBody,
+  validateImage
 };

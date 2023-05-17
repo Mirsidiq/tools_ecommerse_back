@@ -8,46 +8,49 @@ import {
   SubcategoryBody,
   UserLoginBody,
   UserRegisterBody,
+  validateImage,
 } from "../validation/validate.js";
+const checkIsValid =(validation,reqMethod)=>{
+  const {error,__}=validation.validate(reqMethod);
+  return new Promise((resolve,reject)=>{
+    !error ? resolve("valid"): reject(error.message.replaceAll('"', ""));
+  });
+}
 
-const checkParamsId = (req, _, next) => {
-  const { error, __ } = checkId.validate(req.params);
-  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+const checkParamsId = async(req, _, next) => {
+ await checkIsValid(checkId,req.params).catch(err=>next(new customError(400, err)));
+  next()
+};
+const UserLoginBodyMiddleware =async (req, _, next) => {
+  await checkIsValid(UserLoginBody,req.body).catch(err=>next(new customError(400, err)));
   next();
 };
-const UserLoginBodyMiddleware = (req, _, next) => {
-  const { error, __ } = UserLoginBody.validate(req.body);
-  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+const UserRegisterBodyMiddleware = async(req, _, next) => {
+  await checkIsValid(UserRegisterBody,req.body).catch(err=>next(new customError(400, err)));
   next();
 };
-const UserRegisterBodyMiddleware = (req, _, next) => {
-  const { error, __ } =UserRegisterBody.validate(req.body);
-  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+const SubcategoryBodyMiddleware =async (req, _, next) => {
+  await checkIsValid(SubcategoryBody,req.body).catch(err=>next(new customError(400, err)));
   next();
 };
-const SubcategoryBodyMiddleware = (req, _, next) => {
-  const { error, __ } =SubcategoryBody.validate(req.body);
-  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+const ContactBodyMiddleware = async(req, _, next) => {
+  await checkIsValid(ContactBody,req.body).catch(err=>next(new customError(400, err)));
   next();
 };
-const ContactBodyMiddleware = (req, _, next) => {
-  const { error, __ } =ContactBody.validate(req.body);
-  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+const ProductBodyMiddleware = async(req, _, next) => {
+  await checkIsValid(ProductBody,req.body).catch(err=>next(new customError(400, err)));
   next();
 };
-const ProductBodyMiddleware = (req, _, next) => {
-  const { error, __ } =ProductBody.validate(req.body);
-  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+const ValidateImageMiddleware = async(req, _, next) => {
+  await checkIsValid(validateImage,req.file).catch(err=>next(new customError(400, err)));
+  next();
+}
+const OrderAddressBodyMiddleware = async(req, _, next) => {
+  await checkIsValid(OrderAddressBody,req.body).catch(err=>next(new customError(400, err)));
   next();
 };
-const OrderAddressBodyMiddleware = (req, _, next) => {
-  const { error, __ } =OrderAddressBody.validate(req.body);
-  if (error) next(new customError(400, error.message.replaceAll('"', "")));
-  next();
-};
-const OrderBodyMiddleware = (req, _, next) => {
-  const { error, __ } =OrderBody.validate(req.body);
-  if (error) next(new customError(400, error.message.replaceAll('"', "")));
+const OrderBodyMiddleware = async(req, _, next) => {
+  await checkIsValid(OrderBody,req.body).catch(err=>next(new customError(400, err)));
   next();
 };
 export {

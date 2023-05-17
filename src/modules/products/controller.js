@@ -1,3 +1,4 @@
+import { HOST } from "../../config/config.js";
 import { customError } from "../../exception/customError.js";
 import { SubcategoriesModel } from "../subcategories/model.js";
 import { ProductsModel } from "./model.js";
@@ -116,18 +117,19 @@ const addProduct = async (req, res, next) => {
       name,
       description,
       price,
-      total_count,
-      thumbnail,
       brand,
+      discount,
       ref_subcategory,
     } = req.body;
+    const {filename}=req.file
+  const imageUrl=`${HOST}/images/${filename}`
     const product = await ProductsModel.create(
       {
         name,
         description,
         price,
-        total_count,
-        thumbnail,
+        discount,
+        thumbnail:imageUrl,
         brand,
         ref_subcategory,
       },
@@ -145,6 +147,7 @@ const addProduct = async (req, res, next) => {
       });
     }
   } catch (error) {
+    console.log(error);
     next(new customError(500, "internal error"));
   }
 };
@@ -155,19 +158,20 @@ const updateProduct = async (req, res, next) => {
       name,
       description,
       price,
-      total_count,
-      thumbnail,
       brand,
+      discount,
       ref_subcategory,
     } = req.body;
+    const {filename}=req.file
+    const imageUrl=`${HOST}/images/${filename}`
     const product = await ProductsModel.update(
       {
         name,
         description,
         price,
-        total_count,
-        thumbnail,
+        discount,
         brand,
+        thumbnail:imageUrl,
         ref_subcategory,
       },
       {
