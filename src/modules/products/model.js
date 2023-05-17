@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import {sequelize} from "../../utils/sequelize.js";
+
 const brands=["rasulov","stroyka","destroy","rollers"]
 const ProductsModel=sequelize.define("products",{
   product_id:{
@@ -15,22 +16,24 @@ const ProductsModel=sequelize.define("products",{
  },
  description:{
   type:DataTypes.STRING,
-
  },
  price:{
   type:DataTypes.DOUBLE,
   allowNull:false
  },
- total_count:{
-  type:DataTypes.DOUBLE,
-  allowNull:false
- },
+//  total_count:{
+//   type:DataTypes.DOUBLE,
+//   allowNull:false
+//  },
  thumbnail:{
   type:DataTypes.STRING,
  },
  brand:{
-  type:DataTypes.ENUM(...brands),
+  type:DataTypes.BIGINT,
   allowNull:false
+ },
+ discount:{
+  type:DataTypes.INTEGER
  },
  ref_subcategory:{
   type:DataTypes.BIGINT,

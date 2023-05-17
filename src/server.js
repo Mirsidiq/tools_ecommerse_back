@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import cors from "cors"
 import { PORT } from "./config/config.js";
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { customError } from "./exception/customError.js";
@@ -9,6 +10,7 @@ import allRoutes from "./modules/index.js";
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 startSequelize(allModels);
 app.use(allRoutes);
 app.get("/images/:id", (req, res, next) => {

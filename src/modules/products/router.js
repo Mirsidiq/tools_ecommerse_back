@@ -4,7 +4,7 @@ import {  ProductBodyMiddleware, checkParamsId } from "../../middlewares/validat
 import { addProduct, allProducts,deleteProduct,productsAndSubcategory,updateProduct, } from "./controller.js";
 const router=Router()
 
-router.get("/products",allProducts)
+router.get("/products/:id",allProducts)
 router.get("/products/subcategory",productsAndSubcategory)
 router.post("/product",checkAdminToken,ProductBodyMiddleware,addProduct)
 router.put("/product/:id",checkAdminToken,checkParamsId,updateProduct)

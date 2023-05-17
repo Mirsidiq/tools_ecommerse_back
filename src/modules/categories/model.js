@@ -22,12 +22,12 @@ const CategoriesModel=sequelize.define("categories",{
   timestamps:false,
   freezeTableName:true,
 })
-CategoriesModel.hasMany(SubcategoriesModel,{
-  foreignKey:"ref_category",
-})
-SubcategoriesModel.belongsTo(CategoriesModel,{
-  foreignKey:"ref_category",
-})
+// CategoriesModel.hasMany(SubcategoriesModel,{
+//   foreignKey:"ref_category",
+// })
+// SubcategoriesModel.belongsTo(CategoriesModel,{
+//   foreignKey:"ref_category",
+// })
 
 export{
   CategoriesModel

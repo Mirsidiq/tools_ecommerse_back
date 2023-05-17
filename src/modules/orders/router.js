@@ -4,7 +4,8 @@ import {checkParamsId,OrderBodyMiddleware} from "../../middlewares/validation.mi
 import { addOrder,allOrders, deleteOrder, updateOrder } from "./controller.js";
 const router=Router()
 
-router.get("/order",checkAdminToken,allOrders)
+router.get("/order/:id",checkAdminToken,allOrders)
+// router.get("/order",checkAdminToken,getOrderById)
 router.post("/order",checkUserToken,OrderBodyMiddleware,addOrder)
 router.put("/order/:id",checkAdminToken,checkParamsId,updateOrder)
 router.delete("/order/:id",checkAdminToken,checkParamsId,deleteOrder)

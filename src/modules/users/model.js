@@ -43,12 +43,12 @@ const UsersModel=sequelize.define("users",{
   timestamps:false,
   freezeTableName:true,
 })
-UsersModel.hasMany(OrdersModel,{
-  foreignKey:"ref_user"
-})
-OrdersModel.belongsTo(UsersModel,{
-  foreignKey:"ref_user"
-})
+// UsersModel.hasMany(OrdersModel,{
+//   foreignKey:"ref_user"
+// })
+// OrdersModel.belongsTo(UsersModel,{
+//   foreignKey:"ref_user"
+// })
 // UsersModel.hasMany(OrdersModel,{
 //   foreignKey:"user_id"
 // })

@@ -49,12 +49,12 @@ const OrderAddressModel=sequelize.define("order_address",{
   timestamps:false,
   freezeTableName:true,
 })
-OrderAddressModel.hasOne(OrdersModel,{
-  foreignKey:"ref_address",
-})
-OrdersModel.belongsTo(OrderAddressModel,{
-  foreignKey:"ref_address",
-})
+// OrderAddressModel.hasOne(OrdersModel,{
+//   foreignKey:"ref_address",
+// })
+// OrdersModel.belongsTo(OrderAddressModel,{
+//   foreignKey:"ref_address",
+// })
 // IncomesModel.belongsTo(OrderAddressModel,{
 //   foreignKey:"user_ref_id"
 // })
