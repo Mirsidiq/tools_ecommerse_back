@@ -23,12 +23,12 @@ const SubcategoriesModel=sequelize.define("subcategories",{
   timestamps:false,
   freezeTableName:true,
 })
-// SubcategoriesModel.hasMany(ProductsModel,{
-//   foreignKey:"ref_subcategory"
-// })
-// ProductsModel.belongsTo(SubcategoriesModel,{
-//   foreignKey:"ref_subcategory"
-// })
+SubcategoriesModel.hasMany(ProductsModel,{
+  foreignKey:"ref_subcategory"
+})
+ProductsModel.belongsTo(SubcategoriesModel,{
+  foreignKey:"ref_subcategory"
+})
 
 export{
   SubcategoriesModel

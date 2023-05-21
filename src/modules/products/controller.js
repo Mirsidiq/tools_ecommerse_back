@@ -5,24 +5,9 @@ import { ProductsModel } from "./model.js";
 
 const allProducts = async (req, res, next) => {
   try {
-    const { id } = req.params;
     const {price,brand}=req.query
-    if (id) {
-      const product = await ProductsModel.findByPk(id);
-      if (product) {
-        res.status(200).json({
-          message: "product",
-          data: product,
-        });
-      } else {
-        res.status(404).json({
-          message: "product not found",
-          data: {},
-        });
-      }
-    }
-    else if (brand && price) {
-      const foundedProduct = ProductsModel.findAll({
+    if (brand && price) {
+      const foundedProduct =await ProductsModel.findAll({
         where: {
           brand,
           price,
@@ -41,7 +26,7 @@ const allProducts = async (req, res, next) => {
       }
     }
     else if(brand){
-      const foundedProduct=ProductsModel.findAll({where: {brand}})
+      const foundedProduct=await ProductsModel.findAll({where: {brand}})
       if(foundedProduct.length > 0){
         res.status(200).json({
           message:"founded products",
@@ -56,7 +41,7 @@ const allProducts = async (req, res, next) => {
       }
     }
     else if(price){
-      const foundedProduct=ProductsModel.findAll({where: {price}})
+      const foundedProduct=await ProductsModel.findAll({where: {price}})
       if(foundedProduct.length > 0){
         res.status(200).json({
           message:"founded products",
@@ -85,10 +70,50 @@ const allProducts = async (req, res, next) => {
       }
     }
   } catch (error) {
+    console.log(error);
     next(new customError(500, "internal error"));
   }
 };
-
+const getProductById=async(req,res,next) => {
+  try {
+    const {id}=req.params
+    if (id) {
+      const product = await ProductsModel.findByPk(id);
+      if (product) {
+        res.status(200).json({
+          message: "product",
+          data: product,
+        });
+      } else {
+        res.status(404).json({
+          message: "product not found",
+          data: {},
+        });
+      }
+    }
+  } catch (error) {
+    next(new customError(500,'internal error'))
+  }
+}
+const discountedProducts=async(req,res,next) => {
+  try {
+      const product = await ProductsModel.findAll();
+      const filteredProducts=product.filter(item=>item.discount)
+      if (filteredProducts.length > 0) {
+        res.status(200).json({
+          message: "product",
+          data: filteredProducts,
+        });
+      } else {
+        res.status(404).json({
+          message: "product not found",
+          data: [],
+        });
+      }
+  } catch (error) {
+    next(new customError(500,'internal error'))
+  }
+}
 const productsAndSubcategory = async (req, res, next) => {
   try {
     const products = await ProductsModel.findAll({
@@ -225,4 +250,6 @@ export {
   addProduct,
   updateProduct,
   deleteProduct,
+  getProductById,
+  discountedProducts
 };

@@ -35,6 +35,27 @@ const allSubCategories = async (req, res, next) => {
       }
     }
   } catch (error) {
+    console.log(error);
+    next(new customError(500, "internal error"));
+  }
+};
+const categoryById = async (req, res, next) => {
+  try {
+    const { id } = req.params
+      const subcategories = await SubcategoriesModel.findByPk(id,{include: [ProductsModel]});
+      if (subcategories) {
+        res.status(200).json({
+          message: "subcategory",
+          data: subcategories,
+        });
+      } else {
+        res.status(404).json({
+          message: "subcategories not found",
+          data: {},
+        });
+    } 
+  } catch (error) {
+    console.log(error);
     next(new customError(500, "internal error"));
   }
 };
@@ -116,4 +137,5 @@ export {
   addSubCategory,
   updateSubCategory,
   deleteSubCategory,
+  categoryById
 };
