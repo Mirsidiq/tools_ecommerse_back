@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { HOST } from "../../config/config.js";
 import { customError } from "../../exception/customError.js";
 import { SubcategoriesModel } from "../subcategories/model.js";
@@ -5,12 +6,16 @@ import { ProductsModel } from "./model.js";
 
 const allProducts = async (req, res, next) => {
   try {
-    const {price,brand}=req.query
-    if (brand && price) {
+    const {min,max,brand}=req.query
+    console.log(brand);
+    if (brand && brand!="" && min && min!="" && max && max!="") {
+      console.log("mirsidiq");
       const foundedProduct =await ProductsModel.findAll({
         where: {
-          brand,
-          price,
+          [Op.between]: [
+           min,max
+          ],
+          brand
         },
       });
       if (foundedProduct.length > 0) {
@@ -25,7 +30,7 @@ const allProducts = async (req, res, next) => {
         });
       }
     }
-    else if(brand){
+    else if(brand && brand!=""){
       const foundedProduct=await ProductsModel.findAll({where: {brand}})
       if(foundedProduct.length > 0){
         res.status(200).json({
@@ -40,8 +45,12 @@ const allProducts = async (req, res, next) => {
         })
       }
     }
-    else if(price){
-      const foundedProduct=await ProductsModel.findAll({where: {price}})
+    else if(min && min!=""){
+      const foundedProduct=await ProductsModel.findAll({where: {
+        price:{
+          [Op.gte]:min
+        }
+      }})
       if(foundedProduct.length > 0){
         res.status(200).json({
           message:"founded products",

@@ -2,6 +2,7 @@ import { sign, verify } from "../../utils/jwt.js";
 import { UsersModel } from "../users/model.js";
 import { customError } from "../../exception/customError.js";
 const login = async (req, res, next) => {
+ try{
   const { email, password } = req.body;
   const findUser = await UsersModel.findOne({
     where: {
@@ -17,9 +18,14 @@ const login = async (req, res, next) => {
     });
   }
   else {
-    console.log("mirsidiq");
-      next(new customError(401, "unauthorized"));
+    res.status(401).json({
+      message: "unauthorized",
+      token:"",
+    });
     }
+ }catch(err){
+  next(new customError(500,"internal error"));
+ }
 };
 const register = async (req, res, next) => {
   const { firstname,email, password,role } = req.body;
